@@ -15,7 +15,7 @@ A one-click organizational chart generator for HR teams. A Claude Code skill.
 
 ```bash
 # Clone to Claude Code skills directory
-git clone git@github.com:<your-username>/org-chart-skill.git ~/.claude/skills/org-chart
+git clone git@github.com:Kicopeng/org-chart-skill.git ~/.claude/skills/org-chart
 ```
 
 After restarting your Claude Code session, type `/org-chart` or simply describe your organizational structure to trigger the skill.
@@ -26,9 +26,9 @@ After restarting your Claude Code session, type `/org-chart` or simply describe 
 
 ```
 Draw me an org chart.
-The top-level department is Keemart, led by Liu Wei.
-Second-level departments: Business Analytics, led by Huang Yiran, responsible for GMV and margin analysis;
-Merchandising, led by Shen Xuanhao, responsible for procurement and supply chain...
+NovaTech Inc., led by Sarah Chen (VP).
+Departments: Business Analytics (James Huang), Merchandising (Michael Shen),
+Warehousing (Leo Zhang), Product (Grace Guo), HR (David Sun), Finance (Alice Xuan)...
 ```
 
 ### Method 2: Excel File
