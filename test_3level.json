@@ -1,0 +1,48 @@
+{
+  "name": "ApexForge Technologies",
+  "description": "3-Level Organization Structure",
+  "leader": "Robert Chang",
+  "responsibilities": ["Corporate Strategy", "Executive Management"],
+  "meta": {"Title": "CEO", "Tenure": "8yr"},
+  "children": [
+    {
+      "name": "Engineering",
+      "leader": "Lisa Wang",
+      "responsibilities": ["Tech Strategy", "Architecture"],
+      "children": [
+        {"name": "Frontend Team", "leader": "Amy Zhou", "responsibilities": ["H5", "Mini-Programs", "WebApp"]},
+        {"name": "Backend Team", "leader": "Kevin Zhao", "responsibilities": ["APIs", "Microservices", "Databases"]},
+        {"name": "Data Team", "leader": "Ray Liu", "responsibilities": ["Data Warehouse", "BI", "ML Platform"]}
+      ]
+    },
+    {
+      "name": "Product",
+      "leader": "Cindy Chen",
+      "responsibilities": ["Product Planning", "UX Design"],
+      "children": [
+        {"name": "Consumer Product", "leader": "Mark Zhou", "responsibilities": ["Mobile App", "Membership"]},
+        {"name": "Business Product", "leader": "Wendy Wu", "responsibilities": ["Merchant Portal", "Admin Dashboard"]}
+      ]
+    },
+    {
+      "name": "Operations",
+      "leader": "Frank Zheng",
+      "responsibilities": ["Daily Operations", "Growth"],
+      "children": [
+        {"name": "User Operations", "leader": "Nina Qian", "responsibilities": ["Acquisition", "Activation", "Retention"]},
+        {"name": "Content Ops", "leader": "Sam Sun", "responsibilities": ["Content Strategy", "Community"]},
+        {"name": "Data Operations", "leader": "", "responsibilities": ["Analytics", "Optimization"]}
+      ]
+    },
+    {
+      "name": "Corporate Services",
+      "leader": "Helen Huang",
+      "responsibilities": ["HR", "Finance", "Admin"],
+      "children": [
+        {"name": "HR", "leader": "Max Ma", "responsibilities": ["Recruiting", "Training", "Compensation"], "meta": {"Perf": "A+"}},
+        {"name": "Finance", "leader": "Linda Lin", "responsibilities": ["Budgeting", "Accounting", "Tax"]},
+        {"name": "Admin", "leader": "Owen He", "responsibilities": ["Facilities", "Procurement", "Logistics"]}
+      ]
+    }
+  ]
+}

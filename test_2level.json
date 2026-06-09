@@ -1,0 +1,57 @@
+{
+  "name": "NovaTech Inc.",
+  "description": "Consumer Electronics Division",
+  "leader": "Sarah Chen",
+  "responsibilities": ["Division Strategy", "P&L Management"],
+  "meta": {"Title": "VP"},
+  "children": [
+    {
+      "name": "Business Analytics",
+      "leader": "James Huang",
+      "responsibilities": ["Daily GMV", "Margin Analysis", "Out-of-Stock Rate", "Delivery SLA", "Complaint Rate"]
+    },
+    {
+      "name": "Merchandising",
+      "leader": "Michael Shen",
+      "responsibilities": ["Procurement", "Quality Control", "Supply Chain", "Pricing", "Vendor Management", "Marketing"]
+    },
+    {
+      "name": "Warehousing",
+      "leader": "Leo Zhang",
+      "responsibilities": ["Warehouse Operations", "Inter-Warehouse Transfer", "Store Replenishment"]
+    },
+    {
+      "name": "Micro-Fulfillment",
+      "leader": "Paul Peng",
+      "responsibilities": ["Site Selection", "Facility Construction", "Operations", "Rider Management"],
+      "meta": {"Tenure": "5yr", "Perf": "A"}
+    },
+    {
+      "name": "Business Partner",
+      "leader": "",
+      "responsibilities": ["BP Merchandising", "BP Warehousing & Logistics"]
+    },
+    {
+      "name": "Finance",
+      "leader": "Alice Xuan",
+      "responsibilities": ["Financial Analysis", "Budget Planning"],
+      "meta": {"Status": "Transferred"}
+    },
+    {
+      "name": "Human Resources",
+      "leader": "David Sun",
+      "responsibilities": ["Recruitment", "Employee Relations"],
+      "meta": {"Report": "Dotted→Sarah  Solid→HRD"}
+    },
+    {
+      "name": "Business Development",
+      "leader": "",
+      "responsibilities": ["BD Operations", "User Acquisition"]
+    },
+    {
+      "name": "Product",
+      "leader": "Grace Guo",
+      "responsibilities": ["Product R&D", "User Experience"]
+    }
+  ]
+}

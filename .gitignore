@@ -1,0 +1,8 @@
+_screenshot.png
+*.pyc
+__pycache__/
+test_*_output.html
+test_*_check.*
+local_output.html
+local_data.json
+temp_data.json
