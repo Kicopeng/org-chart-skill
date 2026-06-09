@@ -26,9 +26,8 @@ After restarting your Claude Code session, type `/org-chart` or simply describe 
 
 ```
 Draw me an org chart.
-NovaTech Inc., led by Sarah Chen (VP).
-Departments: Business Analytics (James Huang), Merchandising (Michael Shen),
-Warehousing (Leo Zhang), Product (Grace Guo), HR (David Sun), Finance (Alice Xuan)...
+NovaTech Inc., led by Sarah (VP).
+Departments: Business Analytics (James), Merchandising (Raul)..
 ```
 
 ### Method 2: Excel File
