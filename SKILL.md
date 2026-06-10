@@ -1,6 +1,6 @@
 ---
 name: org-chart
-description: Assist drawing organizational charts. When user wants to use natural language or Excel/CSV to record organization structure, with this skill, org chart can be generated. Trigger words: "org chart", "organization chart", "department chart", "reporting line". Default output: PPTX, HTML and Mermaid Markdown.
+description: "Assist drawing organizational charts. When user wants to use natural language or Excel/CSV to record organization structure, with this skill, org chart can be generated. Trigger words: org chart, organization chart, department chart, reporting line. Default output: PPTX, HTML and Mermaid Markdown."
 ---
 
 # Org Chart Generator
