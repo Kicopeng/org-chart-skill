@@ -27,7 +27,7 @@ Ask sequentially, recommend one each time:
 
 | Setting | Default | Notes |
 |---------|---------|-------|
-| Layout | Vertical | 2-4 levels -> vertical; wide/shallow -> horizontal |
+| Layout | Vertical | 2-4 levels recommended; vertical layout only |
 | Colors | Tech Blue | See `references/color-schemes.md` |
 | Output | PPTX | Also supports HTML and Markdown (Mermaid) |
 
@@ -47,7 +47,6 @@ Ask sequentially, recommend one each time:
 
 #### Connector Lines
 
-**Vertical layout** (default):
 ```
       [Parent]
          |
@@ -57,15 +56,6 @@ Ask sequentially, recommend one each time:
 ```
 - Level gap: 60px (adjustable +-10px)
 - All horizontal lines at exact midpoint of the parent-child gap
-
-**Horizontal layout**:
-```
-  [Parent] ----+-- [C1]
-               +-- [C2]
-               +-- [C3]
-```
-- Level gap: 60px
-- All vertical lines at exact midpoint of the parent-child gap
 
 #### Implementation
 
@@ -96,11 +86,10 @@ Assistant:
   - Sub-teams (14)
 
   Three quick confirmations:
-  1. Vertical or horizontal layout? Recommended: vertical
-  2. Color scheme: Tech Blue?
-  3. Output format: PPTX (default)?
+  1. Color scheme: Tech Blue?
+  2. Output format: PPTX (default)?
 
-User: Vertical, Tech Blue, PPTX
+User: Tech Blue, PPTX
 
 Assistant:
   [Generates PPTX]
@@ -140,7 +129,7 @@ Assistant:
 
 | 设置 | 推荐值 | 说明 |
 |------|--------|------|
-| 布局 | 竖版 | 2-4层推荐竖版；横向宽、层次少的可横版 |
+| 布局 | 竖版 | 2-4层推荐竖版 |
 | 配色 | 科技蓝 | 见 `references/color-schemes.md`，也可选商务灰或墨绿 |
 | 输出 | PPTX | 默认 PPTX，方便汇报演示；也可 HTML 或 MD |
 
@@ -160,7 +149,6 @@ Assistant:
 
 #### 连线规则
 
-**竖版**（默认）：
 ```
       [父节点]
          │
@@ -170,15 +158,6 @@ Assistant:
 ```
 - 层级间距：60px（可微调 ±10px）
 - 所有横线在同一水平线，位于父子层级间隙的正中间
-
-**横版**：
-```
-  [父节点] ----+-- [子1]
-               +-- [子2]
-               +-- [子3]
-```
-- 层级间距：60px
-- 所有竖线在同一垂直位置，位于父子层级间隙的正中间
 
 #### 连线实现
 
@@ -208,17 +187,16 @@ Assistant:
   - 一级部门（5个）
   - 二级部门（14个）
   
-  确认三件事：
-  ① 竖版还是横版？推荐竖版
-  ② 配色用科技蓝？
-  ③ 输出 PPTX？
+  确认两件事：
+  ① 配色用科技蓝？
+  ② 输出 PPTX？
 
-User: 竖版，科技蓝，PPTX
+User: 科技蓝，PPTX
 
 Assistant:
   [生成 PPTX 文件]
   已生成 Org_Chart.pptx
-  3 层结构，20 个节点，竖版科技蓝配色
+  3 层结构，20 个节点，科技蓝配色
 ```
 
 ## 参考文件
