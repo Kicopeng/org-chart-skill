@@ -206,7 +206,7 @@ def generate_html(data, colors, bg_override=None):
 <style>
 * {{ margin:0; padding:0; box-sizing:border-box; }}
 body {{
-  font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-family: -apple-system, "PingFang SC", "Microsoft YaHei", "Noto Sans SC", "WenQuanYi Micro Hei", sans-serif;
   background: {page_bg};
   min-height: 100vh;
   display: flex;
