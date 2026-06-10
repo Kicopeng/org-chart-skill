@@ -1,8 +1,9 @@
 _screenshot.png
 *.pyc
 __pycache__/
-test_*_output.html
-test_*_check.*
+test_*.html
+test_*.pptx
+test_*.md
 local_output.html
 local_data.json
 temp_data.json

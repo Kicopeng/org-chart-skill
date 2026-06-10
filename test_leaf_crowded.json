@@ -1,0 +1,30 @@
+{
+  "name": "Stress Test",
+  "description": "Many leaf nodes to test wrapping",
+  "leader": "Alice",
+  "children": [
+    {
+      "name": "Normal Dept",
+      "leader": "Bob",
+      "children": [
+        {"name": "Team A", "leader": "C", "responsibilities": ["small"]},
+        {"name": "Team B", "leader": "D", "responsibilities": ["small"]},
+        {"name": "Team C", "leader": "E", "responsibilities": ["small"]}
+      ]
+    },
+    {
+      "name": "Crowded Dept",
+      "leader": "Frank",
+      "responsibilities": ["Too many teams under one manager"],
+      "children": [
+        {"name": "Alpha Squad", "leader": "A1", "responsibilities": ["Frontend"]},
+        {"name": "Beta Squad", "leader": "B1", "responsibilities": ["Backend"]},
+        {"name": "Gamma Squad", "leader": "C1", "responsibilities": ["Data"]},
+        {"name": "Delta Squad", "leader": "D1", "responsibilities": ["Infra"]},
+        {"name": "Epsilon Squad", "leader": "E1", "responsibilities": ["Security"]},
+        {"name": "Zeta Squad", "leader": "F1", "responsibilities": ["QA"]},
+        {"name": "Eta Squad", "leader": "G1", "responsibilities": ["DevOps"]}
+      ]
+    }
+  ]
+}

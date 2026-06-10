@@ -14,12 +14,14 @@ import html as html_mod
 import argparse
 import sys
 from pathlib import Path
+from typing import Any
 
 sys.path.insert(0, str(Path(__file__).parent))
 import screenshot
 
 
-# --- Color Schemes --------------------------------------------------------
+VACANT_MARKERS = ("-", "Vacant", "TBD", "")
+
 COLOR_SCHEMES = {
     "tech-blue": {
         "palette": [
@@ -73,7 +75,7 @@ COLOR_SCHEMES = {
 }
 
 
-def validate_tree(node, path="root"):
+def validate_tree(node: dict[str, Any], path: str = "root") -> None:
     """Validate org tree structure, raising ValueError on invalid data."""
     if not isinstance(node, dict):
         raise ValueError(f"{path}: expected object, got {type(node).__name__}")
@@ -87,7 +89,7 @@ def validate_tree(node, path="root"):
             validate_tree(child, f"{path}.children[{i}]")
 
 
-def load_json(path):
+def load_json(path: str) -> dict[str, Any]:
     """Load and validate a JSON org tree file."""
     with open(path, "r", encoding="utf-8-sig") as f:
         data = json.load(f)
@@ -95,7 +97,7 @@ def load_json(path):
     return data
 
 
-def get_tree_depth(node):
+def get_tree_depth(node: dict[str, Any]) -> int:
     """Return the maximum depth of the tree."""
     children = node.get("children")
     if not children:
@@ -103,7 +105,7 @@ def get_tree_depth(node):
     return 1 + max(get_tree_depth(c) for c in children)
 
 
-def _resolve_card_style(level, is_leaf, colors):
+def _resolve_card_style(level: int, is_leaf: bool, colors: dict[str, Any]) -> tuple[str, str]:
     """Resolve background, foreground, and CSS modifiers for a node card."""
     palette = colors["palette"]
     idx = min(level, len(palette) - 1)
@@ -116,7 +118,7 @@ def _resolve_card_style(level, is_leaf, colors):
     return f"background:{bg};color:{fg};border-radius:14px;padding:18px 20px;", "mid"
 
 
-def node_card_html(node, level, total_depth, colors):
+def node_card_html(node: dict[str, Any], level: int, colors: dict[str, Any]) -> str:
     """Render a single node card as HTML."""
     name = html_mod.escape(node.get("name", ""))
     leader = html_mod.escape(node.get("leader", "") or "")
@@ -133,8 +135,7 @@ def node_card_html(node, level, total_depth, colors):
     border_css = f"border:1px solid {colors['card_border']};" if is_leaf else ""
     full_style = f"{style};text-align:center;box-shadow:{shadow};{border_css}"
 
-    vacant_markers = ("-", "Vacant", "TBD", "")
-    if leader and leader not in vacant_markers:
+    if leader and leader not in VACANT_MARKERS:
         leader_html = (
             f'<div class="nl-filled" style="color:{colors["leader_filled"]};">'
             f'{leader}</div>'
@@ -170,28 +171,30 @@ def node_card_html(node, level, total_depth, colors):
     )
 
 
-def render_subtree(node, level, total_depth, colors):
+def render_subtree(node: dict[str, Any], level: int, colors: dict[str, Any]) -> str:
     """Recursively render a subtree: node card + children as a grouped row."""
     parts = []
     parts.append(f'<div class="ns" data-lv="{level}">')
-    parts.append(node_card_html(node, level, total_depth, colors))
+    parts.append(node_card_html(node, level, colors))
 
     children = node.get("children", [])
     if children:
         child_items = "".join(
-            render_subtree(child, level + 1, total_depth, colors)
+            render_subtree(child, level + 1, colors)
             for child in children
         )
-        parts.append(f'<div class="cg">{child_items}</div>')
+        all_leaves = not any(c.get("children") for c in children)
+        vert = " cg-vertical" if (all_leaves and len(children) > 4) else ""
+        parts.append(f'<div class="cg{vert}">{child_items}</div>')
 
     parts.append("</div>")
     return "".join(parts)
 
 
-def generate_html(data, colors, bg_override=None):
+def generate_html(data: dict[str, Any], colors: dict[str, Any], bg_override: str | None = None) -> str:
     """Generate the complete standalone HTML document."""
     total = get_tree_depth(data)
-    body = render_subtree(data, 0, total, colors)
+    body = render_subtree(data, 0, colors)
     page_bg = bg_override if bg_override else colors["bg"]
     title = html_mod.escape(data.get("name", "Org Chart"))
     subtitle = html_mod.escape(data.get("description", ""))
@@ -206,7 +209,7 @@ def generate_html(data, colors, bg_override=None):
 <style>
 * {{ margin:0; padding:0; box-sizing:border-box; }}
 body {{
-  font-family: -apple-system, "PingFang SC", "Microsoft YaHei", "Noto Sans SC", "WenQuanYi Micro Hei", sans-serif;
+  font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
   background: {page_bg};
   min-height: 100vh;
   display: flex;
@@ -231,7 +234,8 @@ svg#lines {{
   z-index: 0; pointer-events: none;
 }}
 .ns {{ display: flex; flex-direction: column; align-items: center; min-width: 80px; }}
-.cg {{ display: flex; justify-content: space-evenly; gap: 10px; flex-wrap: nowrap; margin-top: 60px; width: 100%; }}
+.cg {{ display: flex; justify-content: space-evenly; align-items: flex-start; gap: 10px; flex-wrap: nowrap; margin-top: 60px; width: 100%; }}
+.cg-vertical {{ flex-direction: column; align-items: center; gap: 6px; width: auto; border: 1.5px solid {line_color}; border-radius: 10px; padding: 10px 14px; }}
 .nc {{ transition: transform .2s, box-shadow .2s; }}
 .nc:hover {{
   transform: translateY(-2px);
@@ -267,12 +271,30 @@ svg#lines {{
 
 <script>
 (function() {{
+  function equalizeNonLeaves() {{
+    var groups = {{}};
+    document.querySelectorAll('.ns').forEach(function(ns) {{
+      // Only process non-leaf nodes (those with children)
+      if (!ns.querySelector(':scope > .cg')) return;
+      var nc = ns.querySelector(':scope > .nc');
+      if (!nc) return;
+      var lv = ns.getAttribute('data-lv') || '0';
+      if (!groups[lv]) groups[lv] = [];
+      groups[lv].push(nc);
+    }});
+    Object.keys(groups).forEach(function(lv) {{
+      var maxH = 0;
+      groups[lv].forEach(function(nc) {{ maxH = Math.max(maxH, nc.offsetHeight); }});
+      groups[lv].forEach(function(nc) {{ nc.style.height = maxH + 'px'; }});
+    }});
+  }}
+
   function drawLines() {{
+    equalizeNonLeaves();
     var svg = document.getElementById('lines');
     var mc = document.getElementById('mainContainer');
     var mRect = mc.getBoundingClientRect();
 
-    // Compute true content width (may overflow container)
     var allCards = document.querySelectorAll('.nc');
     var maxRight = 0;
     allCards.forEach(function(c) {{
@@ -293,6 +315,7 @@ svg#lines {{
       if (!cg) return;
       var childrenNS = cg.querySelectorAll(':scope > .ns');
       if (!childrenNS.length) return;
+      var isVert = cg.classList.contains('cg-vertical');
 
       var parentCard = parentNS.querySelector(':scope > .nc');
       if (!parentCard) return;
@@ -312,17 +335,22 @@ svg#lines {{
       }}
       if (!childData.length) return;
 
-      var hLineY = (parentBY + childData[0].cy) / 2;
-      var minCX = childData[0].cx;
-      var maxCX = childData[childData.length - 1].cx;
-      pathParts.push('M ' + minCX + ' ' + hLineY + ' L ' + maxCX + ' ' + hLineY);
-
-      for (var j = 0; j < childData.length; j++) {{
-        pathParts.push(' M ' + childData[j].cx + ' ' + hLineY
-          + ' L ' + childData[j].cx + ' ' + childData[j].cy);
+      if (isVert) {{
+        var boxRect = cg.getBoundingClientRect();
+        var boxCX = boxRect.left + boxRect.width / 2 - mRect.left;
+        var boxTY = boxRect.top - mRect.top;
+        pathParts.push('M ' + parentCX + ' ' + parentBY + ' L ' + parentCX + ' ' + boxTY);
+        pathParts.push('M ' + parentCX + ' ' + boxTY + ' L ' + boxCX + ' ' + boxTY);
+      }} else {{
+        var hLineY = (parentBY + childData[0].cy) / 2;
+        var minCX = childData[0].cx;
+        var maxCX = childData[childData.length - 1].cx;
+        pathParts.push('M ' + minCX + ' ' + hLineY + ' L ' + maxCX + ' ' + hLineY);
+        for (var j = 0; j < childData.length; j++) {{
+          pathParts.push('M ' + childData[j].cx + ' ' + hLineY + ' L ' + childData[j].cx + ' ' + childData[j].cy);
+        }}
+        pathParts.push('M ' + parentCX + ' ' + parentBY + ' L ' + parentCX + ' ' + hLineY);
       }}
-      pathParts.push(' M ' + parentCX + ' ' + parentBY
-        + ' L ' + parentCX + ' ' + hLineY);
     }});
 
     if (pathParts.length) {{
@@ -342,7 +370,7 @@ svg#lines {{
 </html>"""
 
 
-def _mermaid_sanitize(text):
+def _mermaid_sanitize(text: str) -> str:
     """Escape characters that break Mermaid label parsing."""
     return (
         text.replace('"', "'")
@@ -353,7 +381,7 @@ def _mermaid_sanitize(text):
     )
 
 
-def generate_mermaid(data):
+def generate_mermaid(data: dict[str, Any]) -> str:
     """Generate a Mermaid flowchart (vertical top-to-bottom)."""
     lines = ["graph TB"]
     counter = [0]
@@ -367,8 +395,7 @@ def generate_mermaid(data):
         meta = node.get("meta", {})
 
         label_parts = [name]
-        vacant = ("-", "Vacant", "TBD", "")
-        if leader and leader not in vacant:
+        if leader and leader not in VACANT_MARKERS:
             label_parts.append(_mermaid_sanitize(leader))
         if resp:
             label_parts.append(_mermaid_sanitize(resp))
@@ -391,7 +418,7 @@ def generate_mermaid(data):
     return "\n".join(lines) + "\n"
 
 
-def main():
+def main() -> None:
     parser = argparse.ArgumentParser(description="Org chart generator (HTML / Mermaid / PPTX)")
     parser.add_argument("input", help="Path to JSON data file")
     parser.add_argument("-o", "--output", default="org_chart.html", help="Output file path")

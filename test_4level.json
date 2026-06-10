@@ -1,0 +1,87 @@
+{
+  "name": "Nebula Systems",
+  "description": "4-Level Enterprise Structure",
+  "leader": "Elena Vasquez",
+  "responsibilities": ["Global Strategy", "Board Governance"],
+  "meta": {"Title": "CEO", "Tenure": "10yr"},
+  "children": [
+    {
+      "name": "Engineering",
+      "leader": "Raj Patel",
+      "responsibilities": ["Tech Strategy", "Platform Architecture"],
+      "children": [
+        {
+          "name": "Infrastructure",
+          "leader": "Tom Chen",
+          "responsibilities": ["Cloud", "CI/CD", "SRE"],
+          "children": [
+            {"name": "Cloud Platform", "leader": "Alice Kim", "responsibilities": ["AWS", "K8s"]},
+            {"name": "DevOps", "leader": "Ben Liu", "responsibilities": ["CI/CD", "Monitoring"]},
+            {"name": "Security", "leader": "", "responsibilities": ["IAM", "Compliance"]}
+          ]
+        },
+        {
+          "name": "Application",
+          "leader": "Sara Wong",
+          "responsibilities": ["Microservices", "APIs", "Data"],
+          "children": [
+            {"name": "Core Services", "leader": "Mike Zhang", "responsibilities": ["API Gateway", "Auth"], "meta": {"Perf": "A"}},
+            {"name": "Data Platform", "leader": "Lisa Park", "responsibilities": ["Pipelines", "Warehouse"]}
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Product",
+      "leader": "David Muller",
+      "responsibilities": ["Product Vision", "Roadmap"],
+      "children": [
+        {
+          "name": "Consumer",
+          "leader": "Emma Stone",
+          "responsibilities": ["Mobile", "Web"],
+          "children": [
+            {"name": "iOS", "leader": "Chris Lee", "responsibilities": ["Swift", "App Store"]},
+            {"name": "Android", "leader": "Nick Wu", "responsibilities": ["Kotlin", "Play Store"]},
+            {"name": "Web", "leader": "Julia Fang", "responsibilities": ["React", "SEO"]}
+          ]
+        },
+        {
+          "name": "Enterprise",
+          "leader": "Oscar Grant",
+          "responsibilities": ["B2B", "Admin"],
+          "children": [
+            {"name": "Admin Panel", "leader": "Nina Zhao", "responsibilities": ["Dashboard", "RBAC"]},
+            {"name": "API Products", "leader": "", "responsibilities": ["Developer Portal", "SDK"]}
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Operations",
+      "leader": "Maria Santos",
+      "responsibilities": ["Supply Chain", "Logistics"],
+      "meta": {"Perf": "A+"},
+      "children": [
+        {
+          "name": "Fulfillment",
+          "leader": "Jack Turner",
+          "responsibilities": ["Warehouse", "Delivery"],
+          "children": [
+            {"name": "Inbound", "leader": "Tina He", "responsibilities": ["Receiving", "QC"]},
+            {"name": "Outbound", "leader": "Alex Pei", "responsibilities": ["Picking", "Shipping"]}
+          ]
+        },
+        {
+          "name": "Customer Support",
+          "leader": "Rachel Adams",
+          "responsibilities": ["Help Desk", "Escalations"],
+          "children": [
+            {"name": "Tier 1", "leader": "Kai Zhao", "responsibilities": ["Tickets", "Chat"]},
+            {"name": "Tier 2", "leader": "Maya Singh", "responsibilities": ["Technical", "Bug Triage"]}
+          ]
+        }
+      ]
+    }
+  ]
+}
