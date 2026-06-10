@@ -1,0 +1,32 @@
+{
+  "name": "Tight Squeeze Inc.",
+  "leader": "Alice",
+  "children": [
+    {
+      "name": "International Business Development & Partnerships Division",
+      "leader": "Alexander Montgomery-Wellington",
+      "responsibilities": ["Global Strategic Partnerships", "Cross-Border M&A", "International Regulatory Compliance"],
+      "children": [
+        {"name": "Asia Pacific Regional Operations", "leader": "Dr. Chen Wei-Lin", "responsibilities": ["Market Entry Strategy", "Joint Venture Management"], "children": [
+          {"name": "China Desk", "leader": "Li Wei", "responsibilities": ["Shanghai Office", "Shenzhen Operations"]},
+          {"name": "Southeast Asia Hub", "leader": "Nguyen Thi Mai", "responsibilities": ["Vietnam", "Thailand", "Indonesia"]},
+          {"name": "Japan & Korea", "leader": "Park Jin-Soo", "responsibilities": ["Tokyo", "Seoul", "Osaka"]}
+        ]},
+        {"name": "European Union Affairs", "leader": "Jean-Pierre Dubois", "responsibilities": ["EU Regulatory Compliance", "Cross-Border Trade"]},
+        {"name": "Americas Business Development", "leader": "Maria Rodriguez-Garcia", "responsibilities": ["LatAm Expansion", "NAFTA Compliance"], "children": [
+          {"name": "North America", "leader": "John Miller", "responsibilities": ["US", "Canada", "Mexico"]},
+          {"name": "South America", "leader": "Carlos Mendez", "responsibilities": ["Brazil", "Argentina", "Chile"]}
+        ]},
+        {"name": "Middle East & Africa Desk", "leader": "Omar Al-Rashid", "responsibilities": ["GCC Relations", "African Market Development"]},
+        {"name": "Strategic Alliances", "leader": "Sarah Mitchell-Anderson", "responsibilities": ["Technology Partnerships", "Channel Development"]},
+        {"name": "Government Relations", "leader": "Thomas Richardson III", "responsibilities": ["Public Policy", "Trade Negotiations"]},
+        {"name": "M&A Integration", "leader": "Dr. Yuki Tanaka", "responsibilities": ["Post-Merger Integration", "Cultural Alignment"], "children": [
+          {"name": "Due Diligence", "leader": "Anna Berg", "responsibilities": ["Financial Review", "Legal Audit"]},
+          {"name": "Integration Planning", "leader": "Tom Baker", "responsibilities": ["Day 1 Readiness", "Culture Mapping"]},
+          {"name": "Synergy Tracking", "leader": "", "responsibilities": ["Cost savings", "Revenue uplift"]}
+        ]},
+        {"name": "Innovation Hub", "leader": "Priya Krishnamurthy", "responsibilities": ["R&D Partnerships", "Startup Accelerator"]}
+      ]
+    }
+  ]
+}

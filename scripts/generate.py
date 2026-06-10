@@ -129,9 +129,10 @@ def node_card_html(node: dict[str, Any], level: int, colors: dict[str, Any]) -> 
     is_leaf = not node.get("children")
     style, card_class = _resolve_card_style(level, is_leaf, colors)
 
-    shadow = colors["card_shadow"]
     if level == 0:
         shadow = "0 8px 32px rgba(26,26,46,.18)"
+    else:
+        shadow = colors["card_shadow"]
     border_css = f"border:1px solid {colors['card_border']};" if is_leaf else ""
     full_style = f"{style};text-align:center;box-shadow:{shadow};{border_css}"
 
@@ -184,8 +185,8 @@ def render_subtree(node: dict[str, Any], level: int, colors: dict[str, Any]) -> 
             for child in children
         )
         all_leaves = not any(c.get("children") for c in children)
-        vert = " cg-vertical" if (level >= 2 and all_leaves and len(children) > 4) else ""
-        parts.append(f'<div class="cg{vert}">{child_items}</div>')
+        leaf_attr = ' data-leaf="true"' if all_leaves else ""
+        parts.append(f'<div class="cg"{leaf_attr}>{child_items}</div>')
 
     parts.append("</div>")
     return "".join(parts)
@@ -193,7 +194,6 @@ def render_subtree(node: dict[str, Any], level: int, colors: dict[str, Any]) -> 
 
 def generate_html(data: dict[str, Any], colors: dict[str, Any], bg_override: str | None = None) -> str:
     """Generate the complete standalone HTML document."""
-    total = get_tree_depth(data)
     body = render_subtree(data, 0, colors)
     page_bg = bg_override if bg_override else colors["bg"]
     title = html_mod.escape(data.get("name", "Org Chart"))
@@ -233,9 +233,9 @@ svg#lines {{
   width: 100%; height: 100%;
   z-index: 0; pointer-events: none;
 }}
-.ns {{ display: flex; flex-direction: column; align-items: center; min-width: 80px; }}
-.cg {{ display: flex; justify-content: space-evenly; align-items: flex-start; gap: 10px; flex-wrap: nowrap; margin-top: 60px; width: 100%; }}
-.cg-vertical {{ flex-direction: column; align-items: center; gap: 6px; width: auto; border: 1.5px solid {line_color}; border-radius: 10px; padding: 10px 14px; }}
+.ns {{ display: flex; flex-direction: column; align-items: center; min-width: 80px; position: relative; z-index: 1; }}
+.cg {{ display: flex; justify-content: center; align-items: flex-start; gap: 10px; flex-wrap: nowrap; margin-top: 60px; width: 100%; }}
+.cg[data-leaf="true"] {{ flex-wrap: wrap; row-gap: 10px; }}
 .nc {{ transition: transform .2s, box-shadow .2s; }}
 .nc:hover {{
   transform: translateY(-2px);
@@ -315,8 +315,6 @@ svg#lines {{
       if (!cg) return;
       var childrenNS = cg.querySelectorAll(':scope > .ns');
       if (!childrenNS.length) return;
-      var isVert = cg.classList.contains('cg-vertical');
-
       var parentCard = parentNS.querySelector(':scope > .nc');
       if (!parentCard) return;
       var pr = parentCard.getBoundingClientRect();
@@ -335,22 +333,17 @@ svg#lines {{
       }}
       if (!childData.length) return;
 
-      if (isVert) {{
-        var boxRect = cg.getBoundingClientRect();
-        var boxCX = boxRect.left + boxRect.width / 2 - mRect.left;
-        var boxTY = boxRect.top - mRect.top;
-        pathParts.push('M ' + parentCX + ' ' + parentBY + ' L ' + parentCX + ' ' + boxTY);
-        pathParts.push('M ' + parentCX + ' ' + boxTY + ' L ' + boxCX + ' ' + boxTY);
-      }} else {{
-        var hLineY = (parentBY + childData[0].cy) / 2;
-        var minCX = childData[0].cx;
-        var maxCX = childData[childData.length - 1].cx;
-        pathParts.push('M ' + minCX + ' ' + hLineY + ' L ' + maxCX + ' ' + hLineY);
-        for (var j = 0; j < childData.length; j++) {{
-          pathParts.push('M ' + childData[j].cx + ' ' + hLineY + ' L ' + childData[j].cx + ' ' + childData[j].cy);
-        }}
-        pathParts.push('M ' + parentCX + ' ' + parentBY + ' L ' + parentCX + ' ' + hLineY);
+      var hLineY = (parentBY + childData[0].cy) / 2;
+      var minCX = Infinity, maxCX = -Infinity;
+      for (var k = 0; k < childData.length; k++) {{
+        if (childData[k].cx < minCX) minCX = childData[k].cx;
+        if (childData[k].cx > maxCX) maxCX = childData[k].cx;
       }}
+      pathParts.push('M ' + minCX + ' ' + hLineY + ' L ' + maxCX + ' ' + hLineY);
+      for (var j = 0; j < childData.length; j++) {{
+        pathParts.push('M ' + childData[j].cx + ' ' + hLineY + ' L ' + childData[j].cx + ' ' + childData[j].cy);
+      }}
+      pathParts.push('M ' + parentCX + ' ' + parentBY + ' L ' + parentCX + ' ' + hLineY);
     }});
 
     if (pathParts.length) {{
