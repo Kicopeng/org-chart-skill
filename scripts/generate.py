@@ -184,7 +184,7 @@ def render_subtree(node: dict[str, Any], level: int, colors: dict[str, Any]) -> 
             for child in children
         )
         all_leaves = not any(c.get("children") for c in children)
-        vert = " cg-vertical" if (all_leaves and len(children) > 4) else ""
+        vert = " cg-vertical" if (level >= 2 and all_leaves and len(children) > 4) else ""
         parts.append(f'<div class="cg{vert}">{child_items}</div>')
 
     parts.append("</div>")
