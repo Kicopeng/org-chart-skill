@@ -1,57 +1,41 @@
 {
-  "name": "NovaTech Inc.",
-  "description": "Consumer Electronics Division",
-  "leader": "Sarah Chen",
-  "responsibilities": ["Division Strategy", "P&L Management"],
-  "meta": {"Title": "VP"},
+  "name": "Harbor Labs",
+  "description": "AI Research & Development Center",
+  "leader": "Dr. Maya Okonkwo",
+  "responsibilities": ["Research Direction", "Partnerships"],
+  "meta": {"Title": "Director", "Tenure": "6yr"},
   "children": [
     {
-      "name": "Business Analytics",
-      "leader": "James Huang",
-      "responsibilities": ["Daily GMV", "Margin Analysis", "Out-of-Stock Rate", "Delivery SLA", "Complaint Rate"]
+      "name": "NLP Research",
+      "leader": "Anders Berg",
+      "responsibilities": ["LLM Training", "Benchmarking", "Fine-tuning Pipelines"]
     },
     {
-      "name": "Merchandising",
-      "leader": "Michael Shen",
-      "responsibilities": ["Procurement", "Quality Control", "Supply Chain", "Pricing", "Vendor Management", "Marketing"]
+      "name": "Computer Vision",
+      "leader": "Sofia Reyes",
+      "responsibilities": ["Object Detection", "Image Segmentation", "Video Analytics"]
     },
     {
-      "name": "Warehousing",
-      "leader": "Leo Zhang",
-      "responsibilities": ["Warehouse Operations", "Inter-Warehouse Transfer", "Store Replenishment"]
+      "name": "ML Infrastructure",
+      "leader": "Kai Nakamura",
+      "responsibilities": ["GPU Clusters", "Model Serving", "Experiment Tracking"],
+      "meta": {"Perf": "A"}
     },
     {
-      "name": "Micro-Fulfillment",
-      "leader": "Paul Peng",
-      "responsibilities": ["Site Selection", "Facility Construction", "Operations", "Rider Management"],
-      "meta": {"Tenure": "5yr", "Perf": "A"}
-    },
-    {
-      "name": "Business Partner",
+      "name": "Data Engineering",
       "leader": "",
-      "responsibilities": ["BP Merchandising", "BP Warehousing & Logistics"]
+      "responsibilities": ["Data Pipelines", "Annotation Tools", "Quality Control"]
     },
     {
-      "name": "Finance",
-      "leader": "Alice Xuan",
-      "responsibilities": ["Financial Analysis", "Budget Planning"],
-      "meta": {"Status": "Transferred"}
+      "name": "Applied AI",
+      "leader": "Priya Sharma",
+      "responsibilities": ["Client Projects", "Prototyping", "Technical Consulting"]
     },
     {
-      "name": "Human Resources",
-      "leader": "David Sun",
-      "responsibilities": ["Recruitment", "Employee Relations"],
-      "meta": {"Report": "Dotted→Sarah  Solid→HRD"}
-    },
-    {
-      "name": "Business Development",
-      "leader": "",
-      "responsibilities": ["BD Operations", "User Acquisition"]
-    },
-    {
-      "name": "Product",
-      "leader": "Grace Guo",
-      "responsibilities": ["Product R&D", "User Experience"]
+      "name": "Operations",
+      "leader": "Leo Fernandez",
+      "responsibilities": ["Budget", "Hiring", "Lab Logistics"],
+      "meta": {"Status": "On Leave"}
     }
   ]
 }
