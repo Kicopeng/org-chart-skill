@@ -1,6 +1,6 @@
 ---
 name: org-chart
-description: 绘制组织架构图（organizational chart）。当用户需要从自然语言描述或 Excel/CSV 中一键生成组织架构图时使用。触发词："组织架构图"、"组织架构"、"org chart"、"部门架构"、"汇报关系图"、"人员架构"、"架构图"。输出格式默认 PPTX，也支持 HTML 和 Mermaid Markdown。
+description: assist drawing（organizational chart）。when user want to use natual lanaguage or Excel/CSV to record organization chart, with this skill, org chart can be generated. Trigger words: "org chart", "organization chart", "department chart", "reporting line". Default output: PPTX , html and mermaid markdown.
 ---
 
 # Org Chart Generator
