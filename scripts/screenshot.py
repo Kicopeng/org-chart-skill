@@ -1,4 +1,4 @@
-﻿"""Take screenshot of org chart HTML with white background, embed in PPTX."""
+"""Take screenshot of org chart HTML with white background, embed in PPTX."""
 import os
 import sys
 import time
@@ -16,9 +16,12 @@ def main(html_path, pptx_path):
     with sync_playwright() as p:
         try:
             browser = p.chromium.launch(channel="msedge")
-        except Exception as e:
-            print(f"ERROR: Cannot launch Edge. Details: {e}")
-            sys.exit(1)
+        except Exception:
+            try:
+                browser = p.chromium.launch()
+            except Exception as e:
+                print(f"ERROR: Cannot launch browser. Details: {e}")
+                sys.exit(1)
 
         page = browser.new_page(viewport={"width": 1400, "height": 4000})
         try:

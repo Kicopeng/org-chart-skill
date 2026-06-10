@@ -124,7 +124,7 @@ def node_card_html(node, level, total_depth, colors):
     resp = " · ".join(resp_list) if resp_list else ""
     meta = {html_mod.escape(k): html_mod.escape(v) for k, v in node.get("meta", {}).items()}
 
-    is_leaf = (level == total_depth - 1)
+    is_leaf = not node.get("children")
     style, card_class = _resolve_card_style(level, is_leaf, colors)
 
     shadow = colors["card_shadow"]
@@ -271,7 +271,17 @@ svg#lines {{
     var svg = document.getElementById('lines');
     var mc = document.getElementById('mainContainer');
     var mRect = mc.getBoundingClientRect();
-    var W = mRect.width, H = mc.scrollHeight;
+
+    // Compute true content width (may overflow container)
+    var allCards = document.querySelectorAll('.nc');
+    var maxRight = 0;
+    allCards.forEach(function(c) {{
+      var r = c.getBoundingClientRect();
+      var right = r.right - mRect.left;
+      if (right > maxRight) maxRight = right;
+    }});
+    var W = Math.max(mRect.width, maxRight + 20);
+    var H = mc.scrollHeight;
     svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
     svg.style.height = H + 'px';
 
@@ -353,7 +363,7 @@ def generate_mermaid(data):
         counter[0] += 1
         name = _mermaid_sanitize(node.get("name", ""))
         leader = node.get("leader", "") or ""
-        resp = " 璺?".join(node.get("responsibilities", []))
+        resp = " - ".join(node.get("responsibilities", []))
         meta = node.get("meta", {})
 
         label_parts = [name]
